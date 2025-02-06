@@ -1,17 +1,18 @@
-import Bd from 'mysql';
+import express from 'express';
+import connection from './Mysql.js'; // Importez la connexion Bd ici
 
-const RouteCategories = () => {
+const router = express.Router();
 
-  //connexion Bd 
-  const connection = Bd();
-	// Exemple de requête pour tester la connexion
-	connection.query("SELECT * FROM ma_table", (err, results) => {
-		if (err) {
-			console.error("Erreur lors de la requête : ", err);
-			return;
-		}
-		console.log("Résultats de la requête : ", results);
-	});
-};
+// Route pour récupérer toutes les catégories
+router.get('/categories', (req, res) => {
+  // Exécuter la requête SQL pour récupérer les catégories
+  connection.query('SELECT * FROM categories', (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des catégories :', err);
+      return res.status(500).json({ error: 'Erreur interne du serveur' });
+    }
+    res.status(200).json(results);
+  });
+});
 
-export default RouteCategories;
+export default router;

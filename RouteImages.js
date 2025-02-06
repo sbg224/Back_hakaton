@@ -4,9 +4,9 @@ import connection from './Mysql.js'; // Importez la connexion Bd ici
 const router = express.Router();
 
 // Route pour récupérer toutes les grottes
-router.get('/grottes', (req, res) => {
+router.get('/images', (req, res) => {
   // Exécuter la requête SQL pour récupérer les grottes
-  connection.query('SELECT * FROM grottes', (err, results) => {
+  connection.query('SELECT * FROM grottes_images', (err, results) => {
     if (err) {
       console.error('Erreur lors de la récupération des grottes :', err);
       return res.status(500).json({ error: 'Erreur interne du serveur' });
